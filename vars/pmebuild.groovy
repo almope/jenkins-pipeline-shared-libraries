@@ -156,6 +156,8 @@ def treatVariables(String buildConfigContent, Map<String, Object> variables) {
     println "variables: ${variables}"
     def content = buildConfigContent
     variables.each { key, value ->
+        println "content: ${content}"
+        println "key: ${key}, value: ${value}"
         content = content.replaceAll('\\{\\{' + key + '}}', value)
     }
     def matcher = content =~ /\{\{[a-zA-Z_0-9]*\}\}/
