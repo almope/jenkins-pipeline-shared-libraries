@@ -16,7 +16,9 @@ def buildProjects(List<String> projectCollection, String settingsXmlId, String b
 
     println "[INFO] Build projects ${projectCollection}. Build path ${buildConfigPathFolder}. DATE_TIME_SUFFIX '${env.DATE_TIME_SUFFIX}'"
     def buildConfigContent = readFile "${buildConfigPathFolder}/build-config.yaml"
+    println "buildConfigContent: ${buildConfigContent}"
     Map<String, Object> buildConfigMap = getBuildConfiguration(buildConfigContent, buildConfigPathFolder, buildConfigAdditionalVariables)
+    println "buildConfigMap: ${buildConfigMap}"
   
     checkoutProjects(projectCollection, buildConfigMap, buildConfigAdditionalVariables)
     projectCollection.each { project -> buildProject(project, settingsXmlId, buildConfigMap, pmeCliPath, projectVariableMap, variableVersionsMap) }
@@ -150,6 +152,8 @@ def getProjectConfiguration(String project, Map<String, Object> buildConfig) {
  * @return the map of treated variables
  */
 def treatVariables(String buildConfigContent, Map<String, Object> variables) {
+    println "buildConfigContent: ${buildConfigContent}"
+    println "variables: ${variables}"
     def content = buildConfigContent
     variables.each { key, value ->
         content = content.replaceAll('\\{\\{' + key + '}}', value)
